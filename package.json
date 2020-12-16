@@ -1,0 +1,15 @@
+{
+  "name": "jeuvirus",
+  "version": "1.0.0",
+  "description": "Un jeu",
+  "main": "index.js",
+  "dependencies": {
+    "babylonjs": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeremy HIRTH DAUMAS",
+  "license": "ISC"
+}
