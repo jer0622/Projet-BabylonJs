@@ -28,11 +28,11 @@ async function game(canvasId) {
     
     // Permet au jeu de tourner
     engine.runRenderLoop(function () {
-        // Récuperer le ratio par les fps
-        _this.fps = Math.round(1000 / engine.getDeltaTime());
+        // Checker le mouvement du joueur
+        checkMovePlayer(engine.getDeltaTime());
 
-        // Checker le mouvement du joueur en lui envoyant le ratio de déplacement
-        checkMovePlayer((_this.fps) / 60);
+        // Animation du joueur
+        animatePlayer();
 
         _this.scene.render();
     });
