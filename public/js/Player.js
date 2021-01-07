@@ -62,7 +62,7 @@ async function initCameraPlayer(scene, canvas) {
     patronPlayer.isPickable = false;
     patronPlayer.checkCollisions = true;
     patronPlayer.position = new BABYLON.Vector3(0, 20, 0);
-    patronPlayer.bakeTransformIntoVertices(BABYLON.Matrix.Translation(0, 1.5, 0))
+    patronPlayer.bakeTransformIntoVertices(BABYLON.Matrix.Translation(0, 1.5, 0));
     
     patronPlayer.ellipsoid = new BABYLON.Vector3(1, 1.5, 1);
     patronPlayer.ellipsoidOffset = new BABYLON.Vector3(0, 1.5, 0);
@@ -73,18 +73,14 @@ async function initCameraPlayer(scene, canvas) {
     var playerBox = result.meshes[0];
     playerBox.parent = patronPlayer;
 
-    
     //scene.stopAllAnimations();              // On stope les animations
     this._runAnim = result.animationGroups[0];
     
     
-
-
     
     // On crée la caméra
     this.camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 30, 30), scene);
     this.camera.playerBox = patronPlayer;
-    this.camera.parent = this.camera.patronPlayer;
 
     // Ajout des collisions avec playerBox
     this.camera.playerBox.checkCollisions = true;
@@ -92,9 +88,6 @@ async function initCameraPlayer(scene, canvas) {
 
     // Si le joueur est en vie ou non
     this.isAlive = true;
-
-    // Pour savoir que c'est le joueur principale
-    this.camera.isMain = true;
 
     // Axe de mouvement X et Z
     this.camera.axisMovement = [false, false, false, false];

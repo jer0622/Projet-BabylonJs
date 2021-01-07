@@ -17,25 +17,42 @@ async function game(canvasId) {
 
     // On apelle Arena
     var _arena = await arena(_this);
+
     
     // On apelle Player
     var _player = await player(_this, canvas);
-
+    
     
 
-    
+    // Le nombre de Patient
+    var nbPatient = 4;
 
+    // Création des Patient
+    var tabPatient = [];
+    for (let i = 0; i < nbPatient; i++) {
+        let _patient = new Patient();
+        await _patient.build(_this, canvas);
+        tabPatient.push(_patient);
+    }
+
+    
     
     // Permet au jeu de tourner
     engine.runRenderLoop(function () {
         // Checker le mouvement du joueur
         checkMovePlayer(engine.getDeltaTime());
 
+        // Deplace les patients
+        tabPatient.forEach(patient => patient.movePatient(engine.getDeltaTime()));
+        
+
         // Animation du joueur
         animatePlayer();
 
         _this.scene.render();
     });
+
+    
 
     // Ajuste la vue 3D si la fenetre est agrandi ou diminué
     window.addEventListener("resize", function () {
@@ -55,7 +72,6 @@ function initSceneGame(engine) {
     scene.collisionsEnabled = true;
     return scene;
 }
-
 
 
 // Conversion degres ----> radians

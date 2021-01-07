@@ -23,7 +23,6 @@
 #pour VisualStudioCode
 .vscode/*
 
-
 #pour Eclipse
 **/.project
 **/.classpath

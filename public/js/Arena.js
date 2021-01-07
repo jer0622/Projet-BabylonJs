@@ -6,18 +6,14 @@ async function arena(game) {
     // Création de notre lumière principale
     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 
-
-
     // On charge la map 
     await loadMap();
-    
-
 };
 
 
 
 async function loadMap(scene) {
-    const result = await BABYLON.SceneLoader.ImportMeshAsync(null, "./assets/", "map.glb", scene);
+    const result = await BABYLON.SceneLoader.ImportMeshAsync(null, "./assets/", "Map.glb", scene);
     let env = result.meshes[0];
     let allMeshes = env.getChildMeshes();
 
