@@ -5,6 +5,14 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 
 
+// Configuration de la partie (peut être changé si plusieurs niveaux...)
+var CONFIG = {
+    NB_PATIENT : 3,
+    INITIAL_INFECTION : 1,
+    DIST_INFECTION : 0.1
+};
+
+
 async function game(canvasId) {
     // Canvas et engine défini ici
     var canvas = document.getElementById(canvasId);
@@ -29,25 +37,30 @@ async function game(canvasId) {
 
     // Création des Patient
     var tabPatient = [];
-    for (let i = 0; i < nbPatient; i++) {
+    for (let i = 0; i < CONFIG.NB_PATIENT; i++) {
         let _patient = new Patient();
-        await _patient.build(_this, canvas);
+        await _patient.build(_this, canvas, i);
         tabPatient.push(_patient);
     }
-
-    
     
     // Permet au jeu de tourner
     engine.runRenderLoop(function () {
         // Checker le mouvement du joueur
         checkMovePlayer(engine.getDeltaTime());
 
+        // Animation du joueur principal
+        animatePlayer();
+
+        // Boucle qui permet d'infecter les patient lorsque celui-ci croise un infecté
+        for (let i = 0; i < CONFIG.NB_PATIENT; i++) {
+            for (let j = 0; j < CONFIG.NB_PATIENT; j++) {
+                tabPatient[i].checkInfection(tabPatient[j]);
+            }
+        }
+
         // Deplace les patients
         tabPatient.forEach(patient => patient.movePatient(engine.getDeltaTime()));
         
-
-        // Animation du joueur
-        animatePlayer();
 
         _this.scene.render();
     });

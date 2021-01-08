@@ -1,8 +1,11 @@
 class Patient {
 
-    async build(game, canvas) {
+    async build(game, canvas, index) {
         // Le jeu, chargé dans l'objet Player
         this.game = game;
+
+        // l'index unique a un patient pour le différencié des autres
+        this.index = index;
 
         // La vitesse de course du joueur
         this.speed = 0.2;
@@ -11,8 +14,13 @@ class Patient {
         this.axisMovement = [false, false, false, false];
 
         // Si le patient est infecté
-        var estInfecter = false;
-
+        if (index < CONFIG.INITIAL_INFECTION) {
+            this.estInfecter = true;
+        }
+        else {
+            this.estInfecter = false;
+        }
+        
         // Initialise le patient
         await this.initCameraPatient(this.game.scene, canvas);
 
@@ -33,6 +41,20 @@ class Patient {
         patronPlayer.ellipsoidOffset = new BABYLON.Vector3(0, 1.5, 0);
         patronPlayer.rotationQuaternion = new BABYLON.Quaternion(0, 1, 0, 0);
 
+        // Sphere rouge au-dessus du patient s'il est infecté
+        var sphere = BABYLON.Mesh.CreateSphere("sphereInfecter", 16, 0.5, scene);
+        sphere.position = new BABYLON.Vector3(0, 5.5, 0);
+        var material = new BABYLON.StandardMaterial("rouge", scene);
+        material.diffuseColor = new BABYLON.Color3(255, 0, 0);
+        sphere.material = material;
+        sphere.parent = patronPlayer;
+
+        if (this.estInfecter) 
+            sphere.isVisible = true;
+        else
+            sphere.isVisible = false;
+
+        this.sphere = sphere;
 
         // Importation du personnage
         const result = await BABYLON.SceneLoader.ImportMeshAsync(null, "./assets/", "Patient.glb", scene);
@@ -47,7 +69,7 @@ class Patient {
         this.patientBox.applyGravity = true;
     }
 
-
+    // Permet de deplacer le patient
     movePatient(deltaTime) {
         let fps = 1000 / deltaTime;
         let relativeSpeed = this.speed / (fps / 60);            // Vitesse de déplacement
@@ -106,7 +128,7 @@ class Patient {
         this.patientBox.moveWithCollisions(new BABYLON.Vector3(0,(-1.5) * relativeSpeed ,0));
     }
 
-
+    // Direction aléatoire pour le Patient
     changeAxisMovement() {
         if (getRandomInt(0, 1) === 1) {
             this.axisMovement[0] = false;
@@ -123,6 +145,27 @@ class Patient {
         else {
             this.axisMovement[2] = true;
             this.axisMovement[3] = false;
+        }
+    }
+
+    // Infecte le patient
+    infectPatient() {
+        this.estInfecter = true;
+        this.sphere.isVisible = true;
+    }
+
+    // Vérifie la distance entre deux patient potentiellement infecté
+    checkInfection(patient) {
+        if (this.index != patient.index) {
+            var xdist = Math.abs(this.patientBox.position.x - patient.patientBox.position.x);
+            var ydist = Math.abs(this.patientBox.position.y - patient.patientBox.position.y);
+            var dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
+            if (dist < CONFIG.DIST_INFECTION) {
+                if (this.estInfecter || patient.estInfecter) {
+                    this.infectPatient();
+                    patient.infectPatient();
+                }
+            }
         }
     }
 }
