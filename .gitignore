@@ -27,6 +27,7 @@
 **/.project
 **/.classpath
 **/.settings/
+
 # les dossiers du workspace eclipse... normalement pas dans le git, à adapter au besoin
 .metadata/
 .recommanders/
