@@ -15,3 +15,8 @@ Par la suite on pourrait envisager des améliorations comme :
  
 ## Outils utilisés :
 - Blender pour créer la map et les personnages pour la suite.
+
+## Sources des objets blender utilisés :
+- [Personnage](https://free3d.com/3d-model/low-poly-rigs-soldier-64238.html) que j'ai ensuite modifié avec blender.
+- [Lit d'hôpital](https://free3d.com/fr/3d-model/hospital-bed-85989.html).
+- [Stéthoscope](https://www.cgtrader.com/free-3d-models/various/various-models/stethoscope-medical-equipment-treatment-medicine-hospital-heart).
