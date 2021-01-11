@@ -11,7 +11,11 @@ L’idée est de développer un jeu qui se déroulerait dans un hôpital (en ver
 
 Par la suite on pourrait envisager des améliorations comme :
  - La possibilité de fermer des portes pour confiner plusieurs patients qui ont été vacciné (cela suppose qu’un patient pourrais être infecté plusieurs fois).
- - Le médecin pourrait être équipé d’un masque de protection qui devrais changer toutes les X secondes (dans un endroit spécial) pour ne pas être contaminé. Si le médecin est contaminé la partie serais perdue. 
+ - Le médecin pourrait être équipé d’un masque de protection qui devrais changer toutes les X secondes (dans un endroit spécial) pour ne pas être contaminé. Si le médecin est contaminé la partie serais perdue.
+ 
+ ## Commandes :
+ - Déplacer le personnage (le médecin) avec les touches Z, Q, S, D.
+ - Décontaminer les patients avec la touche E (pas encore implémené) (les patients contaminé ont une sphère au-dessus de leur tête).
  
 ## Outils utilisés :
 - Blender pour créer la map et les personnages pour la suite.
