@@ -69,13 +69,16 @@ async function initCameraPlayer(scene, canvas) {
     patronPlayer.rotationQuaternion = new BABYLON.Quaternion(0, 1, 0, 0);
     
     // Importation du personnage
-    const result = await BABYLON.SceneLoader.ImportMeshAsync(null, "./assets/", "medecin.glb", scene);
+    const result = await BABYLON.SceneLoader.ImportMeshAsync(null, "./assets/", "Medecin.glb", scene);
     var playerBox = result.meshes[0];
     playerBox.parent = patronPlayer;
 
-    //scene.stopAllAnimations();              // On stope les animations
+
+    // Importation des animations
     this._runAnim = result.animationGroups[0];
-    
+    this._desinfectAnim = result.animationGroups[1];
+    this._runAnim.stop();
+    this._desinfectAnim.stop();
     
     
     // On crée la caméra
@@ -160,11 +163,20 @@ function checkMovePlayer(deltaTime) {
 
 
 function animatePlayer() {
+    // Animation de déplacement
     if (this.camera.axisMovement[0] || this.camera.axisMovement[1] ||
         this.camera.axisMovement[2] || this.camera.axisMovement[3]) {
             this._runAnim.play(this._runAnim.loopAnimation);
         }
     else {
         this._runAnim.stop();
+        this._runAnim.reset();
     }
+
+    // Animation du coup de seringue
+    window.addEventListener("keydown", function(evt) {
+        if (evt.keyCode == 69) {
+            this._desinfectAnim.play();
+        }
+    }, false);
 }
