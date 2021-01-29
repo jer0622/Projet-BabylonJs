@@ -154,6 +154,13 @@ class Patient {
         this.sphere.isVisible = true;
     }
 
+
+    // Desinfecte le patient
+    desinfectPatient() {
+        this.estInfecter = false;
+        this.sphere.isVisible = false;
+    }
+
     // Vérifie la distance entre deux patient potentiellement infecté
     checkInfection(patient) {
         if (this.index != patient.index) {

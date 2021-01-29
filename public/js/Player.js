@@ -159,7 +159,23 @@ function checkMovePlayer(deltaTime) {
 }
 
 
+function desinfecterPatient(tabPatient) {
+    window.addEventListener("keydown", function(evt) {
+        if (evt.keyCode == 69) {
+            tabPatient.forEach(function (patient) {
+                var xdist = Math.abs(this.camera.playerBox.position.x - patient.patientBox.position.x);
+                var ydist = Math.abs(this.camera.playerBox.position.y - patient.patientBox.position.y);
+                var dist = Math.sqrt(Math.pow(xdist, 2) + Math.pow(ydist, 2));
+                if (dist < CONFIG.DIST_DESINFECTION) {
+                    if (patient.estInfecter) {
+                        patient.desinfectPatient();
+                    }
+                }
+            });
+        }
+    }, false);
 
+}
 
 
 function animatePlayer() {

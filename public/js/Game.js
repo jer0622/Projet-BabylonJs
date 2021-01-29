@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 // Configuration de la partie (peut être changé si plusieurs niveaux...)
 var CONFIG = {
-    NB_PATIENT : 3,
+    NB_PATIENT : 4,
     INITIAL_INFECTION : 1,
-    DIST_INFECTION : 0.1
+    DIST_INFECTION : 0.1,
+    DIST_DESINFECTION : 1
 };
 
 
@@ -50,6 +51,8 @@ async function game(canvasId) {
 
         // Animation du joueur principal
         animatePlayer();
+
+        desinfecterPatient(tabPatient);
 
         // Boucle qui permet d'infecter les patient lorsque celui-ci croise un infecté
         for (let i = 0; i < CONFIG.NB_PATIENT; i++) {
