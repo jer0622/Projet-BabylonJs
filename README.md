@@ -15,7 +15,7 @@ Par la suite on pourrait envisager des améliorations comme :
  
  ## Commandes :
  - Déplacer le personnage (le médecin) avec les touches Z, Q, S, D.
- - Décontaminer les patients avec la touche E (pas encore implémené) (les patients contaminé ont une sphère au-dessus de leur tête).
+ - Décontaminer les patients avec la touche E (les patients contaminé ont une sphère au-dessus de leur tête).
  
 ## Outils utilisés :
 - Blender pour créer la map et les personnages pour la suite.
